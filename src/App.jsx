@@ -1,6 +1,13 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BrowserRouter, Link, NavLink, Route, Routes } from 'react-router-dom'
 import { company, courses, products, projects, services, stats } from './data/dummyData'
+
+const heroSlides = [
+  { label: 'Electrical engineering', image: services[2].image },
+  { label: 'Industrial systems', image: services[0].image },
+  { label: 'Clean energy', image: services[1].image },
+  { label: 'Power in motion', image: projects[1].image, video: 'https://videos.pexels.com/video-files/3195394/3195394-hd_1920_1080_25fps.mp4' },
+]
 
 const Icon = ({ name, size = 20 }) => {
   const common = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true }
@@ -42,8 +49,20 @@ function PageFooter() {
   return <footer className="footer"><div className="container footer-top"><div><Logo /><p>{company.motto}<br />{company.slogan}</p></div><div className="footer-links"><div><span>Explore</span><Link to="/about">About us</Link><Link to="/services">Services</Link><Link to="/projects">Projects</Link></div><div><span>Connect</span><a href={`mailto:${company.email}`}>Email us</a><a href="tel:+2348025733950">Call the team</a><Link to="/training">Training</Link></div><div className="newsletter"><span>Notes from the workshop</span><p>Occasional updates on power, projects, and practical skills.</p><small className="success-note">Your skill is the priority.</small></div></div></div><div className="container footer-bottom"><span>© {new Date().getFullYear()} Bilatec Vocational Hub. Sample client build.</span><span>Sango Ota · Ogun State · Nigeria</span></div></footer>
 }
 
-function PageIntro({ kicker, title, accent, copy, image }) {
-  return <section className="page-intro"><div className="page-intro-image" style={{ backgroundImage: `linear-gradient(90deg, rgba(7,26,47,.97), rgba(7,26,47,.57)), url(${image})` }} /><div className="container page-intro-content"><span className="eyebrow eyebrow--gold">{kicker}</span><h1>{title}<br /><em>{accent}</em></h1><p>{copy}</p></div></section>
+function PageIntro({ kicker, title, accent, copy, image, video = false }) {
+  const images = [...new Set([image, ...services.map((service) => service.image), ...projects.map((project) => project.image)])].slice(0, 3)
+  const [activeImage, setActiveImage] = useState(0)
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  useEffect(() => {
+    if (prefersReducedMotion) return undefined
+    const timer = window.setInterval(() => {
+      setActiveImage((current) => (current + 1) % images.length)
+    }, 6500)
+    return () => window.clearInterval(timer)
+  }, [images.length, prefersReducedMotion])
+
+  return <section className="page-intro"><div className={`page-intro-visual ${video ? 'page-intro-visual--video' : ''}`} aria-hidden="true">{images.map((src, index) => <img className={index === activeImage ? 'page-intro-image page-intro-image--active' : 'page-intro-image'} src={src} alt="" key={src} />)}{video && <video className="page-intro-video" autoPlay={!prefersReducedMotion} muted loop playsInline poster={image}><source src={heroSlides[3].video} type="video/mp4" /></video>}</div><div className="container page-intro-content"><span className="eyebrow eyebrow--gold">{kicker}</span><h1>{title}<br /><em>{accent}</em></h1><p>{copy}</p></div></section>
 }
 
 function AboutPage() {
@@ -62,7 +81,7 @@ function ProductsPage() {
 }
 
 function TrainingPage() {
-  return <div className="page-shell"><PageHeader /><main><PageIntro kicker="Training / 04" title="Learn by" accent="doing." copy="Practical programmes for people who want useful electrical, solar, and maintenance skills." image={services[3].image} /><section className="section-pad training-page"><div className="container"><SectionHeading eyebrow="The workshop" title="Your next skill starts here." copy="Small groups. Practical tools. A clear path from first principles to confident work." /><div className="course-page-grid">{courses.map((course) => <article className="course-page-card" key={course.id}><span className="course-number">0{course.id}</span><span className="eyebrow">{course.label}</span><h3>{course.title}</h3><p>{course.description}</p><div className="course-meta"><span>{course.duration}</span><span>{course.mode}</span></div><Link className="button button--navy" to="/contact">Apply now <Icon name="arrow" size={17} /></Link></article>)}</div></div></section><section className="training-motto"><div className="container"><span className="eyebrow eyebrow--gold">Skill is a power source</span><h2>Don’t just watch<br /><em>the future happen.</em></h2><p>Build the confidence to take part in it.</p></div></section></main><PageFooter /></div>
+  return <div className="page-shell"><PageHeader /><main><PageIntro kicker="Training / 04" title="Learn by" accent="doing." copy="Practical programmes for people who want useful electrical, solar, and maintenance skills." image={services[3].image} video /><section className="section-pad training-page"><div className="container"><SectionHeading eyebrow="The workshop" title="Your next skill starts here." copy="Small groups. Practical tools. A clear path from first principles to confident work." /><div className="course-page-grid">{courses.map((course) => <article className="course-page-card" key={course.id}><span className="course-number">0{course.id}</span><span className="eyebrow">{course.label}</span><h3>{course.title}</h3><p>{course.description}</p><div className="course-meta"><span>{course.duration}</span><span>{course.mode}</span></div><Link className="button button--navy" to="/contact">Apply now <Icon name="arrow" size={17} /></Link></article>)}</div></div></section><section className="training-motto"><div className="container"><span className="eyebrow eyebrow--gold">Skill is a power source</span><h2>Don’t just watch<br /><em>the future happen.</em></h2><p>Build the confidence to take part in it.</p></div></section></main><PageFooter /></div>
 }
 
 function ProjectsPage() {
@@ -80,17 +99,32 @@ function App() {
 
 function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeHero, setActiveHero] = useState(0)
+  const [heroPaused, setHeroPaused] = useState(false)
   const [activeService, setActiveService] = useState(services[0])
   const [productFilter, setProductFilter] = useState('All')
   const [modal, setModal] = useState(null)
   const [submitted, setSubmitted] = useState(false)
   const [newsletterSent, setNewsletterSent] = useState(false)
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   const categories = ['All', ...new Set(products.map((product) => product.category))]
   const filteredProducts = useMemo(() => productFilter === 'All' ? products : products.filter((product) => product.category === productFilter), [productFilter])
 
   const closeModal = () => { setModal(null); setSubmitted(false) }
   const scrollTo = (id) => { setMenuOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }
+
+  useEffect(() => {
+    if (heroPaused || prefersReducedMotion) return undefined
+    const timer = window.setInterval(() => {
+      setActiveHero((current) => (current + 1) % heroSlides.length)
+    }, 7000)
+    return () => window.clearInterval(timer)
+  }, [heroPaused, prefersReducedMotion])
+
+  const changeHero = (direction) => {
+    setActiveHero((current) => (current + direction + heroSlides.length) % heroSlides.length)
+  }
 
   return <div id="top" className="site-shell">
     <div className="announcement"><span className="pulse-dot" /> <span>Sample experience · Client website in development</span><button onClick={() => setModal('quote')}>Start a project <Icon name="arrow" size={15} /></button></div>
@@ -103,10 +137,10 @@ function HomePage() {
 
     <main>
       <section className="hero">
-        <div className="hero-image" />
+        <div className="hero-visual" aria-hidden="true">{heroSlides.map((slide, index) => <div className={index === activeHero ? 'hero-image-layer hero-image-layer--active' : 'hero-image-layer'} key={slide.label}><img src={slide.image} alt="" />{slide.video && index === activeHero && <video className="hero-video" autoPlay={!prefersReducedMotion} muted loop playsInline poster={slide.image}><source src={slide.video} type="video/mp4" /></video>}</div>)}</div>
         <div className="hero-grid" />
         <div className="container hero-content"><div className="hero-copy"><span className="eyebrow eyebrow--gold">Bilatec / skill-first engineering</span><h1>Your skill.<br /><em>Our priority.</em></h1><p>Electrical engineering, sustainable energy, and practical skills for the systems and people that keep businesses moving.</p><div className="hero-actions"><button className="button button--gold" onClick={() => setModal('quote')}>Discuss your project <Icon name="arrow" size={17} /></button><Link className="text-button text-button--light" to="/services">Explore services <Icon name="arrow" size={17} /></Link></div></div><div className="hero-aside"><span className="vertical-label">BILATEC / 001</span><div className="hero-note"><span className="note-line" /><span>Engineering power.<br />Building skills.<br />Creating solutions.</span></div></div></div>
-        <div className="hero-motto-stamp"><span>Your skill</span><strong>Our priority.</strong></div><div className="scroll-cue"><span>Scroll to explore</span><span className="scroll-line" /></div>
+        <div className="hero-motto-stamp"><span>Your skill</span><strong>Our priority.</strong></div><div className="hero-controls" aria-label="Hero slideshow controls"><button type="button" className="hero-control-arrow" onClick={() => changeHero(-1)} aria-label="Previous hero image">←</button><div className="hero-dots" role="group" aria-label="Choose a hero image">{heroSlides.map((slide, index) => <button type="button" key={slide.label} className={index === activeHero ? 'hero-dot hero-dot--active' : 'hero-dot'} onClick={() => setActiveHero(index)} aria-label={`Show ${slide.label}`} aria-pressed={index === activeHero} />)}</div><button type="button" className="hero-control-arrow" onClick={() => changeHero(1)} aria-label="Next hero image">→</button><button type="button" className="hero-pause" onClick={() => setHeroPaused(!heroPaused)} aria-pressed={heroPaused}>{heroPaused ? 'Play' : 'Pause'}</button></div><div className="scroll-cue"><span>Scroll to explore</span><span className="scroll-line" /></div>
       </section>
 
       <section className="intro section-pad" id="about"><div className="container intro-grid"><div><span className="eyebrow">A capable partner</span><h2>Technical thinking.<br /><span>Practical delivery.</span></h2></div><div className="intro-copy"><p className="lead">Bilatec Vocational Hub brings engineering services and practical technical training together under one roof.</p><p>Whether you need a dependable power solution, a cleaner installation, or the confidence to build a career with your hands, our work starts with understanding the real problem.</p><button className="text-button" onClick={() => scrollTo('contact')}>Meet Bilatec <Icon name="arrow" size={17} /></button></div></div><div className="container stats-row">{stats.map((stat) => <div className="stat" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div></section>
