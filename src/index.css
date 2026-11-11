@@ -109,7 +109,7 @@ h1 em, h2 em { color: var(--gold); font-family: 'Playfair Display', serif; font-
 .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 11px 0 30px; }
 .tag-row span { display: inline-flex; align-items: center; gap: 5px; padding: 7px 9px; color: var(--blue); background: #edf3fc; font: 9px 'DM Mono', monospace; }
 .solar-band { position: relative; min-height: 620px; display: flex; align-items: center; overflow: hidden; color: white; background: var(--navy); }
-.solar-band-image { position: absolute; inset: 0 0 0 40%; background: linear-gradient(90deg, var(--navy) 0%, rgba(7,26,47,.74) 35%, rgba(7,26,47,.1)), url('https://images.unsplash.com/photo-1581094271453-1298de1aa392?auto=format&fit=crop&w=1800&q=85') center/cover; }
+.solar-band-image { position: absolute; inset: 0 0 0 40%; background: linear-gradient(90deg, var(--navy) 0%, rgba(7,26,47,.74) 35%, rgba(7,26,47,.1)), url('https://independent.ng/wp-content/uploads/Solar-energy-1.jpg') center/cover; }
 .solar-content { position: relative; z-index: 1; }
 .solar-content h2, .contact-section h2 { margin: 18px 0 22px; color: white; font-size: clamp(45px, 6vw, 84px); line-height: .88; letter-spacing: -.07em; }
 .solar-content p { max-width: 385px; color: rgba(255,255,255,.67); font-size: 14px; line-height: 1.8; }

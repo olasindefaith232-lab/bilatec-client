@@ -16,7 +16,7 @@ export const services = [
     shortTitle: 'Control panels',
     description: 'From design to commissioning, we build precise control systems that keep industrial operations moving.',
     detail: 'We design, assemble, install, and maintain control panels for factories, commercial facilities, water systems, and other demanding environments.',
-    image: 'https://images.unsplash.com/photo-1581087724844-037b13e16b0b?auto=format&fit=crop&w=1400&q=85',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx8VqOleM06tE2YHmM5if9P5XzuQUr-mBJUnDhwcyP1nYKT0eGD5kkxosk&s=10',
     tags: ['Panel design', 'Automation', 'Commissioning'],
   },
   {
@@ -26,7 +26,7 @@ export const services = [
     shortTitle: 'Solar power',
     description: 'Reliable, efficient energy systems for homes, businesses, and industrial facilities.',
     detail: 'Move from unstable power to a carefully planned solar and inverter system sized around your real energy needs.',
-    image: 'https://images.unsplash.com/photo-1581094271453-1298de1aa392?auto=format&fit=crop&w=1400&q=85',
+    image: 'https://avebattery.com/wp-content/uploads/2026/03/20-kw-off-grid-solar-system.webp',
     tags: ['Energy audit', 'Inverters', 'Battery backup'],
   },
   {
@@ -36,7 +36,7 @@ export const services = [
     shortTitle: 'Installations',
     description: 'Safe, neat, standards-conscious electrical installations delivered by practical professionals.',
     detail: 'Our installation team handles wiring, distribution, protection, maintenance, and upgrades for new and existing facilities.',
-    image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1400&q=85',
+    image: 'https://t3.ftcdn.net/jpg/01/16/36/22/360_F_116362245_AmVUs2ZKj49Y4Q5bXnreDVe7GqQ1CFrC.jpg',
     tags: ['Wiring', 'Protection', 'Maintenance'],
   },
   {
@@ -46,15 +46,15 @@ export const services = [
     shortTitle: 'Motor repairs',
     description: 'Restore the performance of essential motors with careful diagnostics and workshop expertise.',
     detail: 'We inspect, rewind, repair, and test motors with a focus on dependable performance and longer service life.',
-    image: 'https://images.unsplash.com/photo-1581089778245-3ce67677f718?auto=format&fit=crop&w=1400&q=85',
+    image: 'https://thumbs.dreamstime.com/b/motor-rewinding-african-man-torch-heating-rotor-opened-case-giant-electric-167004909.jpg',
     tags: ['Diagnostics', 'Rewinding', 'Testing'],
   },
 ]
 
 export const products = [
-  { id: 1, name: 'Industrial Contactor', category: 'Industrial Control', brand: 'Schneider Electric', availability: 'In stock', image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=85', description: 'Sample contactor for reliable motor and load switching.' },
-  { id: 2, name: 'Miniature Circuit Breaker', category: 'Circuit Protection', brand: 'ABB', availability: 'In stock', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=85', description: 'Sample protection equipment for residential and industrial installations.' },
-  { id: 3, name: 'Hybrid Solar Inverter', category: 'Solar Equipment', brand: 'Demo Brand', availability: 'On request', image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=85', description: 'Sample hybrid inverter for flexible solar energy systems.' },
+  { id: 1, name: 'Industrial Contactor', category: 'Industrial Control', brand: 'Schneider Electric', availability: 'In stock', image: 'https://static.vecteezy.com/system/resources/thumbnails/071/073/495/small/electrical-relays-controlling-industrial-automation-process-showing-red-buttons-and-blue-levers-photo.jpg', description: 'Sample contactor for reliable motor and load switching.' },
+  { id: 2, name: 'Miniature Circuit Breaker', category: 'Circuit Protection', brand: 'ABB', availability: 'In stock', image: 'https://img.magnific.com/free-photo/man-electrical-technician-working-switchboard-with-fuses_169016-24410.jpg?semt=ais_hybrid&w=740&q=80', description: 'Sample protection equipment for residential and industrial installations.' },
+  { id: 3, name: 'Hybrid Solar Inverter', category: 'Solar Equipment', brand: 'Demo Brand', availability: 'On request', image: 'https://i.pinimg.com/736x/41/8e/9b/418e9bf246506f22a62083053987c845.jpg', description: 'Sample hybrid inverter for flexible solar energy systems.' },
   { id: 4, name: 'Cable Gland Kit', category: 'Installation', brand: 'Demo Brand', availability: 'On request', image: 'https://images.unsplash.com/photo-1581092919535-7146ff1a5904?auto=format&fit=crop&w=800&q=85', description: 'Sample cable management accessories for clean installations.' },
 ]
 
@@ -65,8 +65,8 @@ export const courses = [
 ]
 
 export const projects = [
-  { id: 1, category: 'Industrial', title: 'Control panel assembly', image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=85', location: 'Sample project · Ogun State' },
-  { id: 2, category: 'Solar', title: 'Hybrid inverter installation', image: 'https://images.pexels.com/photos/4254161/pexels-photo-4254161.jpeg?auto=compress&cs=tinysrgb&w=1400', location: 'Sample project · South West' },
+  { id: 1, category: 'Industrial', title: 'Control panel assembly', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXRU5TI5Olcpf4XhlBCk-0NLfPT9AFpT4xtkID7p5B4gDu5cxalm1XfVY&s=10', location: 'Sample project · Ogun State' },
+  { id: 2, category: 'Solar', title: 'Hybrid inverter installation', image: 'https://independent.ng/wp-content/uploads/Solar-energy-1.jpg', location: 'Sample project · South West' },
   { id: 3, category: 'Training', title: 'Practical workshop session', image: 'https://images.pexels.com/photos/16850251/pexels-photo-16850251.jpeg?auto=compress&cs=tinysrgb&w=1400', location: 'Sample project · Bilatec workshop' },
 ]
 
